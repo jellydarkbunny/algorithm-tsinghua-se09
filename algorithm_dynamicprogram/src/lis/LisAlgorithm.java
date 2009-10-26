@@ -13,6 +13,7 @@ public class LisAlgorithm {
 		return max;
 	}
 	
+	//返回最长递增子序列。
 	public int [] getRecords(int [] array,int b[],int maxLength){
 		String bstring = "b[n]:" + arrayToString(b);
 		System.out.println(bstring);
@@ -29,19 +30,9 @@ public class LisAlgorithm {
 		int lastElement = Integer.MAX_VALUE;
 		for(int i = maxLength-1;i>=0;i--){
 			ArrayList <Integer> temp = records.get(i);
-			int max= getMax(temp);
-			if(result.size()==0){
+			int max= getMax(temp,lastElement);
 				result.add(max);
 				lastElement = max;
-				continue;
-			}else{
-				while(max>lastElement){
-					temp.remove(new Integer(max));
-					max = getMax(temp);
-				}
-				result.add(max);
-				lastElement = max;
-			}
 		}
 		
 		int [] longestSeq = new int[maxLength];
@@ -53,49 +44,17 @@ public class LisAlgorithm {
 		return longestSeq;
 	}
 	
-	//返回最长递增子序列。
-	public int [] getRecords__ (int [] array,int [] b,int maxLength){
-		String bstring = "b[n]:" + arrayToString(b);
-		System.out.println(bstring);
-		ArrayList <ArrayList<Integer>> records = new ArrayList<ArrayList<Integer>>();
-		for(int i = 0;i<maxLength;i++){
-			records.add((new ArrayList<Integer>()));
-		}
-		for(int i = 0;i<b.length;i++){
-			int j = b[i];
-			int value = array[i];
-			records.get(j-1).add(value);
-		}
-		int [] longestSeq = new int[maxLength];
-		for(int i = 0;i< maxLength;i++){
-			ArrayList <Integer> temp = records.get(i);
-			int min= getMin(temp);
-			longestSeq [i] = min;
-		}
-		String lstring = "最长子序列 :"+arrayToString(longestSeq);
-		System.out.println(lstring);
-		return longestSeq;
-	}
+ 
 	
-	public int getMin(ArrayList <Integer> array){
-		int min = Integer.MAX_VALUE;
-		int temp= 0;
-		for(int i = 0;i<array.size();i++){
-			temp = array.get(i);
-			if(min >= temp){
-				min = temp;
-			}
-		}
-		return min;
-	}
-	
-	public int getMax(ArrayList <Integer> array){
+	public int getMax(ArrayList <Integer> array,int lastMax){
 		int max = Integer.MIN_VALUE;
 		int temp = 0;
 		for(int i = 0;i<array.size();i++){
 			temp = array.get(i);
 			if(max <= temp){
-				max = temp;
+				if(temp<=lastMax){
+					max = temp;
+				}
 			}
 		}
 		return max;

@@ -1,0 +1,43 @@
+
+
+for i <-0 to n-1
+	for j<-0 to n-1
+		do sum[start][0] <- -¡Þ
+
+left <- startX
+right<- startY
+sum[start][0] <- value[start][0]
+for j <- 1 to n-1
+	if(left-1>=0){
+		left--;
+	}
+	if(right+1<=n-1){
+		right++;
+	}
+  	for index <- left to right
+  		do setValue(CP(index,j))
+maxSum <- -¡Þ
+for i <- 0 to n-1
+   if(maxSum<=sum[i][n-1]){
+   		maxSum <-- sum[i][n-1]
+   }
+return maxSum
+
+
+
+setValue(sum,index,j)
+
+left <- -¡Þ
+middle <- value[index][j-1]
+right <- -¡Þ
+if(index>0){
+	left <- value[index-1][j-1]
+}
+if(index<n-1){
+	right <- value[index+1][j-1]
+}
+sumValue <- max(left,middle,right)
+if(maxValue != -¡Þ){
+	sumValue = sumValue + value[index][j]
+}
+return sumValue

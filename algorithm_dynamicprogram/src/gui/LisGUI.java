@@ -1,5 +1,8 @@
 package gui;
 
+import gui.action.CleanScreenAction;
+import gui.action.ComputeLisAction;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Panel;
@@ -81,7 +84,7 @@ public class LisGUI extends JFrame{
 		
 		JButton resetButton = new JButton();
 		resetButton.setText("reset");
-		
+		resetButton.addActionListener(new CleanScreenAction());
 		controlPanel.add(confirmButton);
 		controlPanel.add(resetButton);
 		return controlPanel;
@@ -92,5 +95,6 @@ public class LisGUI extends JFrame{
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2 - getWidth()/2, size.height/2 - getHeight()/2);
 	}
+	 
 	
 }

@@ -1,11 +1,13 @@
-package gui;
+package gui.action;
+
+import gui.LisGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import algorithm.LisAlgorithm;
-import algorithm.LisN2;
-import algorithm.LisNLgN;
+import lis.LisAlgorithm;
+import lis.LisN2;
+import lis.LisNLgN;
 
 public class ComputeLisAction implements ActionListener{
 	
