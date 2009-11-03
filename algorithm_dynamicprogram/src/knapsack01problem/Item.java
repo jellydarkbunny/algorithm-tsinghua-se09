@@ -49,6 +49,32 @@ public class Item {
 	public int getValue() {
 		return value;
 	}
+	public static void printItems(ArrayList <Item> results){
+		System.out.println("物品有");
+		int valueSum =0;
+		int weightSum = 0;
+		for(int i = 0;i<results.size();i++){
+			Item item = results.get(i);
+			valueSum = valueSum + item.getValue();
+			weightSum = weightSum + item.getWeight();
+			System.out.print(item);
+		}
+		System.out.println("\n物品总共重"+weightSum+"\t物品总价值"+valueSum);
+	}
+	public static String getPrintItemsString(ArrayList <Item> results){
+		String s = results.size()+"个物品\n";
+		int valueSum =0;
+		int weightSum = 0;
+		for(int i = 0;i<results.size();i++){
+			Item item = results.get(i);
+			valueSum = valueSum + item.getValue();
+			weightSum = weightSum + item.getWeight();
+			s = s+item;
+		 }
+		s=s+"\n物品总共重"+weightSum+"\t物品总价值"+valueSum;
+		return s;
+	
+	}
 	public static ArrayList <Item> getItems(int n){
 		ArrayList <Item> items = new ArrayList<Item>();
 		Random ran = new Random();

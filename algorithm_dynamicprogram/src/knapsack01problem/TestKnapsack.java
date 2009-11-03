@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class TestKnapsack {
 	public static void main(String [] args){
-		ArrayList <Item> test = Item.getItems(5);
-		for(int i = 0;i<test.size();i++){
-			System.out.println(test.get(i));
-		}
+		ArrayList <Item> original = Item.getItems(7);
+		System.out.println("≥ı ºŒÔ∆∑£∫");
+		Item.printItems(original);
 		
-		Knapsack knap = new Knapsack(15);
-		knap.getValuableItems(test);
+		Knapsack knap = new Knapsack(13);
+		knap.getValuableItems(original);
 	}
 	
 }

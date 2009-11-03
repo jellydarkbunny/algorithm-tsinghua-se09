@@ -1,14 +1,13 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import knapsack01problem.Item;
+import knapsack01problem.Knapsack;
 
 public class KnapsackGUI extends JFrame{
 
@@ -28,10 +27,16 @@ public class KnapsackGUI extends JFrame{
 		
 		setWindowOnCenter();
 		
+		//initialize the Knapsack
+		myKnapsack = new Knapsack();
 		JPanel itemControl = new ItemControlPanel();
+		outputScreen = new OutputScreenPanel();
+		outputScreen.setEditable(false);
+		outputScreen.setLocation(0, 100);
+		outputScreen.setSize(900, 500);
+		getContentPane().add(outputScreen);
+		getContentPane().add(itemControl);
 		
-		getContentPane().add(itemControl,BorderLayout.CENTER);
-        
 	}
 	private void setWindowOnCenter(){
 		//set the window on the center of the screen
@@ -39,6 +44,14 @@ public class KnapsackGUI extends JFrame{
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2 - getWidth()/2, size.height/2 - getHeight()/2);
 	}
+	public static void addItem(Item item){
+		myKnapsack.originalItems.add(item);
+	}
+	public static void clearItems(){
+		myKnapsack.originalItems.clear();
+	}
+	public static OutputScreenPanel outputScreen;
+	public static Knapsack myKnapsack;
 }
 
 

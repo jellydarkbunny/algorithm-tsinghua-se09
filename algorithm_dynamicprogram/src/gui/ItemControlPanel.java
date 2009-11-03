@@ -1,82 +1,154 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Panel;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
 import knapsack01problem.Item;
 
 public class ItemControlPanel extends JPanel{
-	private ArrayList <Item> items;
-	private int bagCapability;
-	JLabel labelWeight = new JLabel("weight");
-	JTextField inputWeight = new JTextField(10);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1036105642040374456L;
+	JLabel labelWeight= new JLabel("weight") ;
+	JTextField inputWeight  = new JTextField(10);
 	JLabel labelValue = new JLabel("value");
-	JTextField inputValue = new JTextField(10);
+	TextField inputValue = new TextField(10);
 	JLabel labelBag = new JLabel("bag");
-	JTextField inputBag = new JTextField(10);
-	JTextArea output = new JTextArea();
-	
+	TextField inputBag = new TextField(10);
+	JButton addItemButton = new JButton("增加一个物品");
+	JButton clearItemsButton = new JButton("清除所有物品");
+	JButton setBagCapability = new JButton("设置包裹容量");
+	JButton randomButton = new JButton("随机得到10个物品");
+	JButton executeButton = new JButton("执行找寻操作");
+	JButton displayInfoButton = new JButton("显示现在状态");
+	JButton cleanScreenButton = new JButton("清空输出屏幕");
 	public ItemControlPanel(){
 		setSize(300,300);
-		items = new ArrayList<Item>();
-		output.setText("printe items");
-		output.setEditable(false);
-		JButton confirmButton = new JButton("confirm");
-		confirmButton.addActionListener(new addItemAction());
-		JButton clearItemsButton = new JButton("clear");
-		JButton setBagCapability = new JButton("setBagCapability");
 		
-		Panel p1 =new Panel();
-		p1.add(labelWeight);
-		p1.add(inputWeight);
-		p1.setLayout(new BoxLayout(p1,BoxLayout.X_AXIS));
-		
-		Panel p2 = new Panel();
-		p2.add(labelValue);
-		p2.add(inputValue);
-		p2.setLayout(new BoxLayout(p2,BoxLayout.X_AXIS));
-		Panel c3 = new Panel();
-		c3.add(labelBag);
-		c3.add(inputBag);
-		Panel buttons = new Panel();
-		buttons.add(confirmButton);
-		buttons.add(clearItemsButton);
-		buttons.add(setBagCapability);
-		this.setBorder(BorderFactory.createTitledBorder("Control the items"));
-		this.add(p1);
-		this.add(p2);
-		this.add(c3);
-		this.add(buttons);
-		this.add(output);
-		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-	}
-	
-	public void clearItems(){
-		items.clear();
-	}
-	public void setBadCapability(){
+		inputControl();
+		executeControl();
 		
 	}
-	private class addItemAction implements ActionListener{
+	private void inputControl(){
+		add(labelWeight);
+		add(inputWeight);
+		add(labelValue);
+		add(inputValue);
+		addItemButton.addActionListener(new AddItemAction());
+		add(addItemButton);
+		clearItemsButton.addActionListener(new ClearItemsAction());
+		add(clearItemsButton);
+		add(labelBag);
+		add(inputBag);
+		setBagCapability.addActionListener(new setBagCapbilityAction());
+		add(setBagCapability);
+	}
+	private void executeControl(){
+		randomButton.addActionListener(new RandomAction());
+		add(randomButton);
+		executeButton.addActionListener(new ExecuteAction());
+		add(executeButton);
+		cleanScreenButton.addActionListener(new CleanScreen());
+		add(cleanScreenButton);
+		displayInfoButton.addActionListener(new DisplayInfoAction());
+		add(displayInfoButton);
+	}
 
+	private class AddItemAction implements ActionListener{
+
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			String s = output.getText();
-			output.setText(s+inputWeight.getText());
+			int value = Integer.parseInt(inputValue.getText());
+			int weight = Integer.parseInt(inputWeight.getText());
+			Item item = new Item(value,weight);
+			KnapsackGUI.addItem(item);
+			KnapsackGUI.outputScreen.print("增加物品价值"+value+"重量"+weight);
+		}
+	}
+	private class ClearItemsAction implements ActionListener{
+		@SuppressWarnings("static-access")
+		public void actionPerformed(ActionEvent arg0){
+			KnapsackGUI.clearItems();
+			KnapsackGUI.outputScreen.print("清空物品");
+		}
+	}
+	private class setBagCapbilityAction implements ActionListener{
+
+		@SuppressWarnings("static-access")
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			int maxWeight = Integer.parseInt(inputBag.getText());
+			KnapsackGUI.myKnapsack.setMaxWeight(maxWeight);
+			KnapsackGUI.outputScreen.print("设置包裹最大值"+maxWeight);
+		}
+	}
+	private class DisplayInfoAction implements ActionListener{
+
+		@SuppressWarnings("static-access")
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList <Item> items = KnapsackGUI.myKnapsack.getOriginalItems();
+			KnapsackGUI.outputScreen.print(Item.getPrintItemsString(items));
+			KnapsackGUI.outputScreen.print("包裹容量："+KnapsackGUI.myKnapsack.getMaxWeight());
+			KnapsackGUI.outputScreen.print("最大价值："+KnapsackGUI.myKnapsack.getMaxValue());
+		}
+	}
+	private class CleanScreen implements ActionListener{
+
+		@SuppressWarnings("static-access")
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			KnapsackGUI.outputScreen.cleanScreen();
+		}
+		
+	}
+	private class ExecuteAction implements ActionListener{
+
+		@SuppressWarnings("static-access")
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList <Item> original = KnapsackGUI.myKnapsack.getOriginalItems();
+			if(original.size()==0){
+				KnapsackGUI.outputScreen.print("缺少初始物品，请加入物品，帮助请’查询状态‘");
+			}if(KnapsackGUI.myKnapsack.getMaxWeight()==0){
+				KnapsackGUI.outputScreen.print("包裹容量为0或者不合理，请设置");
+			}if(original.size()>0 &&KnapsackGUI.myKnapsack.getMaxWeight()>0){
+				ArrayList <Item> values = KnapsackGUI.myKnapsack.getValuableItems(original);
+				int maxValue = KnapsackGUI.myKnapsack.getMaxValue();
+				KnapsackGUI.outputScreen.print("包裹中装值钱的物品有");
+				KnapsackGUI.outputScreen.print(Item.getPrintItemsString(values));
+				KnapsackGUI.outputScreen.print("最大价值"+maxValue);
+			}
+			
+		}
+		
+	}
+	private class RandomAction implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList <Item> items = Item.getItems(10);
+			for(int i = 0;i<items.size();i++){
+				Item item = items.get(i);
+				KnapsackGUI.addItem(item);
+				//KnapsackGUI.outputScreen.print("增加物品价值"+item.getValue()+"重量"+item.getWeight());
+			}
 		}
 		
 	}
