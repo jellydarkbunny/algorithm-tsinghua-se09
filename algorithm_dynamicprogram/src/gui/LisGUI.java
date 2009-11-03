@@ -42,7 +42,7 @@ public class LisGUI extends JFrame{
 	}
 	public LisGUI(){
 		setSize(900,600);
-		setTitle("Closest Point Pairs");
+		setTitle("Lis GUI");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		setWindowOnCenter();

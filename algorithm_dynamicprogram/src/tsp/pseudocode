@@ -1,0 +1,44 @@
+
+//sort points by X-coordinate then get P(n)
+//it takes O(nlogn) time
+// b is used to make record of the shortest length of the bitonic path
+// while r is used to print out the path. 
+b[1,2] <- d(p1,p2)
+for j <- 3 to n
+	do for i <- 1 to j-2
+	   do b[i,j] <- b[i,j-1] + d(pj-1,pj)
+		   r[i,j] <- j-1
+	   //set b[j-1,j]
+	   b[j-1,j] <- ¡Þ
+	   for k <- 1 to j-2
+	       do q <- b [k,j-1] + d(pk,pj)
+	       	  if q<b[j-1,j] {
+	       	  		b[j-1,j] <- q
+	       	  		r[j-1,j] <-k
+	       	  }
+b[n,n] <- b[n-1,n] + d(pn-1,pn)
+return b and r
+
+
+print-tour(r,n)
+
+print pn
+print pn-1
+k<-r[n-1,n]
+print-path(r,k,n-1)
+print pk
+
+print-path(r,i,j)
+if (i<j){
+	k<- r[i,j]
+	print pk
+	if(k>1){
+		print-path(r,i,k)
+	}
+}else{
+	k<- r[j,i]
+	if(k>1){
+		print-path(r,k,j)
+		print pk
+	}
+}
