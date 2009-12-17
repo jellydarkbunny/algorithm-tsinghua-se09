@@ -2,8 +2,10 @@ package entity;
 
 public class Vertex {
 	private String name;
-	private int id;
 	public Vertex(){
+	}
+	public Vertex(String name){
+		this.name = name;
 	}
 	/**
 	 * @param name the name to set
@@ -17,17 +19,10 @@ public class Vertex {
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
+	 
+	
+	public String toString(){
+		return name;
 	}
 	 
 }

@@ -2,6 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**************************************************************
  * G(V,E)
@@ -10,27 +11,33 @@ import java.util.HashMap;
  *
  */
 public class Graph {
-	private HashMap<Integer,Vertex> vertexes;
+	private HashMap <String,Vertex> vertexes;
 	private ArrayList <Edge> edges;
-	private int [][]matrix;
 	public Graph(){
-		vertexes = new HashMap<Integer,Vertex>();
+		vertexes = new HashMap <String,Vertex>();
 		edges = new ArrayList <Edge>();
 	}
-	//initialize the matrix.
-	@SuppressWarnings("unused")
-	private void intiMatrix(){
-		int size = vertexes.size();
-		matrix= new int[size][size];
-		for(int i = 0;i<edges.size();i++){
-			Edge edge = edges.get(i);
-			int from = edge.getFromVertex().getId();
-			int to = edge.getToVertex().getId();
-			matrix[from][to]=1;
+	public String toString(){
+		Iterator <Vertex>verterxesIterator = vertexes.values().iterator();
+		StringBuilder builder = new StringBuilder();
+		while(verterxesIterator.hasNext()){
+			builder.append(verterxesIterator.next()+"\t");
 		}
+		builder.append("\n");
+		for(int i = 0;i<edges.size();i++){
+			builder.append(edges.get(i));
+		}
+		builder.append("\n");
+		return builder.toString();
 	}
-	
-	 
+	public HashMap<String, Vertex> getVertexes() {
+		return vertexes;
+	}
+
+	public void setVertexes(HashMap<String, Vertex> vertexes) {
+		this.vertexes = vertexes;
+	}
+
 	/**
 	 * @param edges the edges to set
 	 */
