@@ -1,7 +1,7 @@
 package entity;
 
 public class Vertex {
-	private String name;
+	protected String name;
 	public Vertex(){
 	}
 	public Vertex(String name){

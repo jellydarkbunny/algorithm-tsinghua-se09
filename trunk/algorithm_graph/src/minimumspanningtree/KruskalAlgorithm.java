@@ -2,7 +2,6 @@ package minimumspanningtree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import entity.Edge;
 import entity.Graph;
 import entity.Vertex;
@@ -12,30 +11,56 @@ public class KruskalAlgorithm {
 		System.out.println(graph.getEdges());
 		ArrayList<Edge> sortedEdges = getSoredEdge(graph.getEdges());
 		Graph mst = new Graph();
-		HashMap <Integer,Vertex> vertexes= new HashMap <String,Vertex>();
-		HashMap<Integer,Edge> edges = new HashMap<Integer,Edge>();
+		HashMap <String,Vertex> vertexes= new HashMap <String,Vertex>();
+		ArrayList<Edge> edges = new ArrayList<Edge>();
 		int index = 0;
-		while(vertexes.size()<graph.getVertexes().size()&&index<sortedEdges.size()){
+		HashMap<Integer,DisjointSet> forest= new HashMap<Integer,DisjointSet>();
+		while(true){
+			if(vertexes.size()==graph.getVertexes().size()){
+				if(forest.size()==1){
+					break;
+				}
+			}
 			Edge temp = sortedEdges.get(index);
 			Vertex v1 = temp.getFromVertex();
 			Vertex v2 = temp.getToVertex();
-			if(vertexes.containsValue(v1)&&vertexes.containsValue(v2)){
-				index++;
-				continue;
-			}else if(vertexes.containsValue(v1)){
-				vertexes.keySet()vertexes.get(arg0)
-				vertexes.put(v1.getName(), v2);
-				edges.put(temp);
-				index++;
-				continue;
-			}else if(vertexes.containsValue(v2)){
-				vertexes.put(v1.getName(), v1);
+			int v1Index = findSet(forest,v1);
+			int v2Index = findSet(forest,v2);
+			if(v1Index==-1 && v2Index==-1){
+				DisjointSet ds = new DisjointSet(index);
+				ds.addVertex(v1);
+				ds.addVertex(v2);
+				vertexes.put(v1.getName(),v1);
+				vertexes.put(v2.getName(),v2);
+				forest.put(index, ds);
 				edges.add(temp);
 				index++;
 				continue;
-			}else{
-				vertexes.put(index, v1);
-				vertexes.put(index, v2);
+			}else if(v1Index==-1){
+				DisjointSet ds2 = forest.get(v2Index);
+				ds2.addVertex(v1);
+				vertexes.put(v1.getName(),v1);
+				forest.put(ds2.getLabel(), ds2);
+				edges.add(temp);
+				index++;
+				continue;
+			}else if(v2Index==-1){
+				DisjointSet ds1 = forest.get(v1Index);
+				ds1.addVertex(v2);
+				vertexes.put(v2.getName(),v2);
+				forest.put(ds1.getLabel(), ds1);
+				edges.add(temp);
+				index++;
+				continue;
+			}else if(v1Index==v2Index){
+				index++;
+				continue;
+			}else {
+				DisjointSet ds1 = forest.get(v1Index);
+				DisjointSet ds2 = forest.get(v2Index);
+				ds1.union(ds2);
+				forest.put(ds1.getLabel(), ds1);
+				forest.remove(ds2.getLabel());
 				edges.add(temp);
 				index++;
 				continue;
@@ -43,9 +68,16 @@ public class KruskalAlgorithm {
 		}
 		mst.setEdges(edges);
 		mst.setVertexes(vertexes);
-		System.out.println(sortedEdges);
 		System.out.println(mst);
 		return mst;
+	}
+	public static int findSet(HashMap<Integer,DisjointSet> forest,Vertex vertex){
+		for(DisjointSet ds:forest.values()){
+			if(ds.getVertexes().containsKey(vertex.getName())){
+				return ds.getLabel();
+			}
+		}
+		return -1;
 	}
 	public static ArrayList <Edge> getSoredEdge(ArrayList <Edge> edges){
 		ArrayList<Edge> temp = edges;
