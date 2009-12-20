@@ -17,6 +17,10 @@ public class Graph {
 		vertexes = new HashMap <String,Vertex>();
 		edges = new ArrayList <Edge>();
 	}
+	public Graph(HashMap <String,Vertex> vertexes,ArrayList <Edge> edges){
+		this.vertexes = vertexes;
+		this.edges = edges;
+	}
 	public String toString(){
 		Iterator <Vertex>verterxesIterator = vertexes.values().iterator();
 		StringBuilder builder = new StringBuilder();
