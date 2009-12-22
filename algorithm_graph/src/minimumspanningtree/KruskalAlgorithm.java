@@ -2,15 +2,15 @@ package minimumspanningtree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import datastructure.DisjointSet;
 import entity.Edge;
 import entity.Graph;
 import entity.Vertex;
 //需要加入不相交集合数据结构
 public class KruskalAlgorithm {
 	public static Graph getMST(Graph graph){
-		System.out.println(graph.getEdges());
 		ArrayList<Edge> sortedEdges = getSoredEdge(graph.getEdges());
-		Graph mst = new Graph();
 		HashMap <String,Vertex> vertexes= new HashMap <String,Vertex>();
 		ArrayList<Edge> edges = new ArrayList<Edge>();
 		int index = 0;
@@ -66,10 +66,12 @@ public class KruskalAlgorithm {
 				continue;
 			}
 		}
-		mst.setEdges(edges);
-		mst.setVertexes(vertexes);
-		System.out.println(mst);
-		return mst;
+		System.out.println("KRUSKAL ALGORITHM");
+		System.out.println("mst vertex num"+graph.getVertexes().size());
+		System.out.println("mst vertex"+graph.getVertexes());
+		System.out.println("mst tree size"+edges.size());
+		System.out.println("mst tree "+edges);
+		return new Graph(graph.getVertexes(),edges);
 	}
 	public static int findSet(HashMap<Integer,DisjointSet> forest,Vertex vertex){
 		for(DisjointSet ds:forest.values()){
