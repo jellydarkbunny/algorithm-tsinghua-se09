@@ -21,6 +21,30 @@ public class Graph {
 		this.vertexes = vertexes;
 		this.edges = edges;
 	}
+	public boolean compareTo(Graph graph){
+		boolean b = true;
+		for(Vertex vertex:vertexes.values()){
+			b = false;
+			for(Vertex temp:graph.getVertexes().values()){
+				if(vertex.compareTo(temp)){
+					b = true;
+				}
+			}
+		}
+		for(Edge edge:edges){
+			b = false;
+			for(Edge temp:graph.getEdges()){
+				if(!edge.getFromVertex().compareTo(temp.getFromVertex())){
+					if(!edge.getToVertex().compareTo(temp.getToVertex())){
+						if(edge.getWeight()!=temp.getWeight()){
+							b = true;
+						}
+					}
+				}
+			}
+		}
+		return b;
+	}
 	public String toString(){
 		Iterator <Vertex>verterxesIterator = vertexes.values().iterator();
 		StringBuilder builder = new StringBuilder();

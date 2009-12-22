@@ -24,5 +24,10 @@ public class Vertex {
 	public String toString(){
 		return name;
 	}
-	 
+	public boolean compareTo(Vertex vertex){
+		if(name.equals(vertex.getName())){
+			return true;
+		}
+		return false;
+	}
 }

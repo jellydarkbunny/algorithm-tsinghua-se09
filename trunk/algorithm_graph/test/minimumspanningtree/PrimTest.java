@@ -2,16 +2,22 @@ package minimumspanningtree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import entity.Edge;
 import entity.Graph;
 import entity.Vertex;
 
-public class KruskalTest {
+public class PrimTest {
+	public static void main(String [] args){
+		Graph mstTreePrim = getPrim();
+		Graph mstTreeKruskal = KruskalTest.getKruskal();
+		System.out.println(mstTreePrim.compareTo(mstTreeKruskal));
+	}
 	@SuppressWarnings("static-access")
-	public static Graph getKruskal(){
-		KruskalAlgorithm ka = new KruskalAlgorithm();
+	public static Graph getPrim(){
+		PrimAlgorithm prim = new PrimAlgorithm();
 		Graph graph = getGraphOne();
-		return ka.getMST(graph);
+		return prim.getMST(graph);
 	}
 	public static Graph getGraphOne(){
 		Graph graph = new Graph();

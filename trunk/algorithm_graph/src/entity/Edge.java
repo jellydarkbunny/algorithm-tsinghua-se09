@@ -16,6 +16,23 @@ public class Edge {
 		this.fromVertex = from;
 		this.toVertex = to;
 	}
+	public boolean containVertex(Vertex vertex){
+		if(vertex.getName().equals(fromVertex.getName())){
+			return true;
+		}else if(vertex.getName().equals(toVertex.getName())){
+			return true;
+		}
+		return false;
+	}
+	public int compareTo(Edge edge){
+		if(weight>edge.getWeight()){
+			return 1;
+		}else if(weight == edge.getWeight()){
+			return 0;
+		}else{
+			return -1;
+		}
+	}
 	public Vertex getFromVertex() {
 		return fromVertex;
 	}

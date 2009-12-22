@@ -1,4 +1,4 @@
-package minimumspanningtree;
+package datastructure;
 import entity.Vertex;
 import java.util.HashMap;
 public class DisjointSet {
