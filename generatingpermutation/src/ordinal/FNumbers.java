@@ -4,26 +4,33 @@ import java.util.ArrayList;
 
 public class FNumbers {
 	public FNumbers(){
-		n=3;
-		nums=new int[n];
+		an=3;
+		init();
+	}
+	public FNumbers(int n){
+		an=n-1;
+		init();
+	}
+	private void init(){
+		nums=new int[an];
 		//initialize the sequence of numbers
 		//ai is stored in nums[i-1]
-		for(int i = 0;i<n;i++){
+		for(int i = 0;i<an;i++){
 			nums[i]=0;
 		}
 	}
+
 	public ArrayList<Integer> getPermutationFromFNumber(){
 		ArrayList<Integer> p = new ArrayList<Integer>();
 		int temp= 1;
 		p.add(temp);
 		int index = 1;
-		while(index<=n){
+		while(index<=an){
 			temp++;
 			int location=index-nums[index-1];
 			p.add(location,temp);
 			index++;
 		}
-		System.out.println(p);
 		return p;
 	}
 	//get the Factorial Number lists.
@@ -33,13 +40,17 @@ public class FNumbers {
 		int i = 0;
 		int index =2;
 		while(temp>0){
-			newF.nums[i]=Ordinal.getRemainder(temp,index);
+			newF.nums[i]=getRemainder(temp,index);
 			temp = temp/index;
 			index++;
 			i++;
 		}
 		return newF;
 	}
+	public int getRemainder(int x,int y){
+		return x-x/y*y;
+	}
+
 	public void add(){
 		nums[0]++;
 		adapt();
@@ -47,7 +58,7 @@ public class FNumbers {
 	private void adapt(){
 		int i = 0;
 		int boundary =2;
-		while(i<n){
+		while(i<an){
 			if(nums[i]<boundary){
 				break;
 			}
@@ -61,11 +72,11 @@ public class FNumbers {
 	}
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
-		for(int i =0;i<n;i++){
-			sb.append(nums[n-1-i]);
+		for(int i =0;i<an;i++){
+			sb.append(nums[an-1-i]);
 		}
 		return sb.toString();
 	}
 	private int[] nums;
-	private int n;
+	private int an;
 }

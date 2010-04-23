@@ -62,4 +62,38 @@ public class Dictionary {
 		}
 		return nextList;
 	}
+	public void printAllPermutation(){
+		ArrayList<Integer> first = new ArrayList<Integer>();
+		for(int i = 1;i<=n;i++){
+			first.add(i);
+		}
+		System.out.print(first+"\t");
+		if(!isLast(first)){
+			while(true){
+				ArrayList<Integer> temp = getNext(first);
+				System.out.print(temp);
+				if(isLast(temp)){
+					break;
+				}
+			}
+		}
+	}
+	public ArrayList<ArrayList<Integer>> getPermutation(){
+		ArrayList<ArrayList<Integer>> all= new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> first = new ArrayList<Integer>();
+		for(int i = 1;i<=n;i++){
+			first.add(i);
+		}
+		all.add(first);
+		if(!isLast(first)){
+			while(true){
+				ArrayList<Integer> temp = getNext(first);
+				all.add(temp);
+				if(isLast(temp)){
+					break;
+				}
+			}
+		}
+		return all;
+	}
 }
