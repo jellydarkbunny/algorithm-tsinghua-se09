@@ -20,7 +20,7 @@ public class HanoiGUI extends Frame implements ItemListener,Runnable{
     
     static HanoiGUI frame = new HanoiGUI();    //创建窗口对象
     static Thread thread = new Thread(frame);    //创建一个线程
-    static Label lab1=new Label("输入盘子个数（1~10）");  
+    static Label lab1=new Label("输入盘子个数（1~20）");  
     static TextField txt1=new TextField(10);  
     
     static Label lab2=new Label("演示速度");
@@ -38,7 +38,7 @@ public class HanoiGUI extends Frame implements ItemListener,Runnable{
     static Label labTxt=new Label("记录移动过程");
     static TextArea ta=new TextArea();
      
-    static Button btnDisk[]=new Button[20];    //使用按钮做盘子，最多10个盘
+    static Button btnDisk[]=new Button[20];    //使用按钮做盘子，最多20个盘
 
     public static void main(String args[]){
     	CheckboxGroup grp=new CheckboxGroup();  //创建单选框组     
